@@ -2,13 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import AppName from "./AppName";
 import Setting from "./Setting";
+import {useState} from "react";
 
 function Bar(props) {
-    console.log('Logged In User: '+props.loggedInUser);
+    console.log('Logged In User: '+props.userName);
     return(
         <View style={styles.bar}>
             <AppName />
-            <Setting />  
+            <Setting />
+            <Text>{props.userName}</Text>  
         </View>
     )
   }

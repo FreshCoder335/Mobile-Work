@@ -8,14 +8,16 @@ import Home from './Home.js';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { clickProps } from "react-native-web/dist/cjs/modules/forwardedProps/index.js";
 
 // import Icons from "./Icons";
 const Tab = createMaterialBottomTabNavigator();
 
-export default function App(props) {
-  const  [userLoggedIn, setUserLoggedIn] = useState(false);
-  if(userLoggedIn){
+export default function App() {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
+  if(userLoggedIn){
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -25,7 +27,8 @@ export default function App(props) {
       >
         <Tab.Screen
           name='Home'
-          component={Home}
+          children={()=><Home userName={userName}/>}
+          // component={Home}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
@@ -57,13 +60,13 @@ export default function App(props) {
     </NavigationContainer>
   );
 
-  } else{
-    return (
-      <View>
-        <Login/>
-      </View>
-    )
-  }
+} else {
+
+  return (
+      <Login setUserLoggedIn = {setUserLoggedIn}
+      setUserName = {setUserName}/>
+  )
+}
 
 }
 
